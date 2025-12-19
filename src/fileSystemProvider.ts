@@ -1,5 +1,14 @@
 import * as vscode from 'vscode';
 
+export interface SerializedFileEntry {
+    type: vscode.FileType;
+    ctime: number;
+    mtime: number;
+    size: number;
+    data?: string; // base64 encoded
+    entries?: { [key: string]: SerializedFileEntry };
+}
+
 export interface FileEntry {
     type: vscode.FileType;
     ctime: number;
@@ -22,11 +31,14 @@ export class SyncStorageFileSystemProvider implements vscode.FileSystemProvider 
     readonly onDidChangeFile: vscode.Event<vscode.FileChangeEvent[]> = this._emitter.event;
 
     constructor(private context: vscode.ExtensionContext) {
+        // Enable syncing for the storage key
+        this.context.globalState.setKeysForSync(['syncStorageFiles']);
         this.loadFromStorage();
     }
 
     watch(uri: vscode.Uri): vscode.Disposable {
-        // Simplified implementation - no actual watching
+        // Simplified implementation - immediate file system changes are tracked via _fireSoon
+        // Advanced file watching (external changes, etc.) is not implemented
         return new vscode.Disposable(() => {});
     }
 
@@ -219,20 +231,18 @@ export class SyncStorageFileSystemProvider implements vscode.FileSystemProvider 
 
     private saveToStorage(): void {
         const serialized = this.serializeFileSystem(this.root);
-        // Using setKeysForSync to enable syncing
-        this.context.globalState.setKeysForSync(['syncStorageFiles']);
         this.context.globalState.update('syncStorageFiles', serialized);
     }
 
     private loadFromStorage(): void {
-        const serialized = this.context.globalState.get<any>('syncStorageFiles');
+        const serialized = this.context.globalState.get<SerializedFileEntry>('syncStorageFiles');
         if (serialized) {
             this.root = this.deserializeFileSystem(serialized);
         }
     }
 
-    private serializeFileSystem(entry: FileEntry): any {
-        const result: any = {
+    private serializeFileSystem(entry: FileEntry): SerializedFileEntry {
+        const result: SerializedFileEntry = {
             type: entry.type,
             ctime: entry.ctime,
             mtime: entry.mtime,
@@ -247,14 +257,14 @@ export class SyncStorageFileSystemProvider implements vscode.FileSystemProvider 
         if (entry.type === vscode.FileType.Directory && entry.entries) {
             result.entries = {};
             entry.entries.forEach((childEntry, name) => {
-                result.entries[name] = this.serializeFileSystem(childEntry);
+                result.entries![name] = this.serializeFileSystem(childEntry);
             });
         }
 
         return result;
     }
 
-    private deserializeFileSystem(serialized: any): FileEntry {
+    private deserializeFileSystem(serialized: SerializedFileEntry): FileEntry {
         const entry: FileEntry = {
             type: serialized.type,
             ctime: serialized.ctime,
@@ -270,7 +280,7 @@ export class SyncStorageFileSystemProvider implements vscode.FileSystemProvider 
         if (serialized.type === vscode.FileType.Directory && serialized.entries) {
             entry.entries = new Map();
             Object.keys(serialized.entries).forEach(name => {
-                entry.entries!.set(name, this.deserializeFileSystem(serialized.entries[name]));
+                entry.entries!.set(name, this.deserializeFileSystem(serialized.entries![name]));
             });
         }
 
