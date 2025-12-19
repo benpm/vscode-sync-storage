@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
     // Register command to open the sync storage workspace
     context.subscriptions.push(
         vscode.commands.registerCommand('syncStorage.openWorkspace', async () => {
-            const workspaceUri = vscode.Uri.parse('syncstore:/');
+            const workspaceUri = vscode.Uri.parse('syncstore:///');
             
             // Check if we're already in a workspace
             const currentWorkspace = vscode.workspace.workspaceFolders?.[0];

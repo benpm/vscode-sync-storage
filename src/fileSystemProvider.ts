@@ -296,6 +296,6 @@ export class SyncStorageFileSystemProvider implements vscode.FileSystemProvider 
             entries: new Map()
         };
         this.saveToStorage();
-        this._fireSoon({ type: vscode.FileChangeType.Changed, uri: vscode.Uri.parse('syncstore:/') });
+        this._fireSoon({ type: vscode.FileChangeType.Changed, uri: vscode.Uri.parse('syncstore:///') });
     }
 }
