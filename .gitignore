@@ -1,6 +1,11 @@
-# Nestjs specific
-/dist
-/node_modules
+# VS Code extension specific
+out/
+dist/
+node_modules/
+.vscode-test/
+*.vsix
+
+# Build artifacts
 /build
 /tmp
 
