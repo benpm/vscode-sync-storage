@@ -3,11 +3,23 @@
   "displayName": "Sync Storage",
   "description": "Store and sync arbitrary files across VS Code instances using built-in settings sync",
   "version": "0.1.0",
+  "publisher": "benpm",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benpm/vscode-sync-storage.git"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "sync",
+    "storage",
+    "workspace",
+    "settings-sync",
+    "virtual-filesystem"
   ],
   "activationEvents": [
     "onFileSystem:syncstore"

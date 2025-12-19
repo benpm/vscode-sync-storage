@@ -44,6 +44,34 @@ The extension creates a virtual file system using the `syncstore://` URI scheme.
 - Marked for sync using `setKeysForSync()` to enable cross-device synchronization
 - Automatically synced when you have Settings Sync enabled in VS Code
 
+### Architecture
+
+```
+┌─────────────────────────────────────────┐
+│        VS Code Editor                   │
+│  ┌───────────────────────────────────┐  │
+│  │  Sync Storage Workspace           │  │
+│  │  (syncstore:// URI scheme)        │  │
+│  └───────────────────────────────────┘  │
+│              ↓                          │
+│  ┌───────────────────────────────────┐  │
+│  │  FileSystemProvider               │  │
+│  │  (Handles file operations)        │  │
+│  └───────────────────────────────────┘  │
+│              ↓                          │
+│  ┌───────────────────────────────────┐  │
+│  │  globalState Storage              │  │
+│  │  (Base64 serialized files)        │  │
+│  │  ← setKeysForSync(['files'])      │  │
+│  └───────────────────────────────────┘  │
+│              ↓                          │
+│  ┌───────────────────────────────────┐  │
+│  │  VS Code Settings Sync            │  │
+│  │  (Syncs across devices)           │  │
+│  └───────────────────────────────────┘  │
+└─────────────────────────────────────────┘
+```
+
 ## Requirements
 
 - VS Code 1.85.0 or higher
