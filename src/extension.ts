@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 
             // Open the sync storage workspace
             await vscode.commands.executeCommand('vscode.openFolder', workspaceUri, {
-                forceNewWindow: false
+                forceNewWindow: true
             });
 
             vscode.window.showInformationMessage('Sync Storage workspace opened! Files here will sync across your VS Code instances.');
