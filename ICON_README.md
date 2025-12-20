@@ -1,14 +1,15 @@
 # Extension Icon
 
-The current `icon.png` file is a placeholder (128x128 solid blue image).
+The current `icon.png` file is a 128x128 light blue solid color placeholder.
 
-**To replace with the actual icon:**
+**To replace with the actual icon (if needed):**
 
-1. Download the actual icon from: https://github.com/user-attachments/assets/125637cb-fcf3-46c8-8ff5-6341b6643bfe
-2. Save it as `icon.png` in the repository root (replacing the placeholder)
-3. Ensure the icon is:
+1. If you have a different icon design (such as the storage box with gears from the original issue), save it as `icon.png` in the repository root
+2. Ensure the icon is:
    - PNG format
-   - At least 128x128 pixels (recommended: 256x256 or larger)
+   - At least 128x128 pixels (recommended: 128x128 or 256x256)
    - Square aspect ratio
 
-The icon is already configured in `package.json` and will be included in the extension package.
+The icon is already configured in `package.json` with `"icon": "icon.png"` and will be included in the extension package.
+
+**Current icon:** Solid light blue (#6FB1E3) 128x128px PNG
