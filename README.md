@@ -2,6 +2,11 @@
 
 # VS Code Sync Storage
 
+[![Build](https://img.shields.io/github/actions/workflow/status/benpm/vscode-sync-storage/package.yml?branch=main&label=build)](https://github.com/benpm/vscode-sync-storage/actions/workflows/package.yml)
+[![Publish](https://img.shields.io/github/actions/workflow/status/benpm/vscode-sync-storage/publish.yml?label=publish)](https://github.com/benpm/vscode-sync-storage/actions/workflows/publish.yml)
+[![Version](https://img.shields.io/visual-studio-marketplace/v/benpm.vscode-sync-storage)](https://marketplace.visualstudio.com/items?itemName=benpm.vscode-sync-storage)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/benpm.vscode-sync-storage)](https://marketplace.visualstudio.com/items?itemName=benpm.vscode-sync-storage)
+
 A VS Code extension that allows you to store and sync arbitrary files across your VS Code instances using the built-in Settings Sync feature.
 
 ## Features
