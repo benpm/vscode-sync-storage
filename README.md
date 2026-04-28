@@ -1,3 +1,5 @@
+![](icon.png)
+
 # VS Code Sync Storage
 
 A VS Code extension that allows you to store and sync arbitrary files across your VS Code instances using the built-in Settings Sync feature.
@@ -24,7 +26,7 @@ A VS Code extension that allows you to store and sync arbitrary files across you
 2. Type "Sync Storage: New File"
 3. Enter the filename when prompted
 
-**Option 2: Using the Explorer**
+**Option 2: Using the Explorer**disc
 1. Right-click in the Explorer when in the Sync Storage workspace
 2. Select "New File" from the context menu
 3. Enter the filename
